@@ -26,6 +26,12 @@ public class Vector2DTableViewController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle)
     {
+        var vectors = DBManager.Instance().readVectorTable();
+        System.out.println("Vector2D data: ");
+        for (var vector: vectors
+             ) {
+            System.out.println(vector);
 
+        }
     }
 }

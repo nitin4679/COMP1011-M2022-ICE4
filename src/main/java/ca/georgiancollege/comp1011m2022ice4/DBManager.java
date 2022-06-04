@@ -3,6 +3,7 @@ package ca.georgiancollege.comp1011m2022ice4;
 import javafx.fxml.FXML;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 // singleton
 public class DBManager
@@ -81,5 +82,38 @@ public class DBManager
         }
 
         return vectorID;
+    }
+
+    public ArrayList<Vector2D> readVectorTable()
+    {
+        // Instantiates an ArrayList collection of type Vector2D  (empty container)
+        ArrayList<Vector2D> vectors = new ArrayList<Vector2D>();
+
+        String sql = "select vectors.vectorID, X, Y from vectors group by vectors.vectorID";
+
+        try (Connection connection = DriverManager.getConnection(m_connectURL, m_user, m_password);
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery(sql);)
+        {
+            // while there is another record ..... loop
+            while (resultSet.next())
+            {
+                //decode data from the database table
+                int vectorID = resultSet.getInt("vectorID");
+                float X = resultSet.getFloat("X");
+                float Y = resultSet.getFloat("Y");
+
+                // create an anonymous Vector2D object with the data from the database
+                // then add the new Vector2D object to the vectors ArrayList
+                vectors.add(new Vector2D(vectorID, X, Y));
+
+            }
+        }
+        catch(Exception exception)
+        {
+            exception.printStackTrace();
+        }
+
+        return vectors;
     }
 }
