@@ -1,5 +1,7 @@
 package ca.georgiancollege.comp1011m2022ice4;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
@@ -31,6 +33,18 @@ public class Vector2DTableViewController implements Initializable
        XColumn.setCellValueFactory(new PropertyValueFactory<>("X"));
        YColumn.setCellValueFactory(new PropertyValueFactory<>("Y"));
 
-   tableView.getItems().addAll(DBManager.Instance().readVectorTable());
+       tableView.getItems().addAll(DBManager.Instance().readVectorTable());
+
+        //example with mock data
+        /*
+        ObservableList<Vector2D> data = FXCollections.observableArrayList(
+                new Vector2D(0, 0.0f,0.0f),
+                new Vector2D(1,10,20),
+                new Vector2D(2,10,20),
+                new Vector2D(3,30,40),
+                new Vector2D(4,50,60),
+                new Vector2D(5,70,80)
+        );
+        tableView.getItems().addAll(data);*/
     }
 }
